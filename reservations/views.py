@@ -20,8 +20,8 @@ class SpotReservationViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         if serializer.is_valid():
             try:
-                spot_location = SpotLocation.objects.get(id=spot_location_id)
-                serializer.save(spot_location=spot_location, **self.request.data)
+                spot_location_id = self.request.data.get('spot_location_id')
+                serializer.save(spot_location=SpotLocation.objects.get(id=spot_location_id), **self.request.data)
             except:
                 print "NOT VALID SPOT LOCATION"
         else:
