@@ -4,7 +4,7 @@ html, body, .container-fluid, #map {
 }
 
 .container-fluid {
-    width: 85%;
+    width: 100%;
     position: absolute;
     top: 0;
     padding: 0;
@@ -19,7 +19,7 @@ html, body, .container-fluid, #map {
 }
 
 .modal-open .modal {
-	width: 85%;
+	width: 100%;
 }
 
 .alert-fixed {
