@@ -6,8 +6,10 @@ from reservations.models import SpotReservation
 
 class SpotReservationSerializer(serializers.ModelSerializer):
 	spot_location = serializers.CharField(required=False)
+	spot_reservation_start = serializers.DateTimeField(required=False)
+	spot_reservation_end = serializers.DateTimeField(required=False)
 
 	class Meta:
 		model = SpotReservation
-		fields = ('id', 'spot_location', 'spot_reservation_date', 'spot_reservation_start_time', 'spot_reservation_end_time',)
+		fields = ('id', 'spot_location', 'spot_reservation_start', 'spot_reservation_end',)
 

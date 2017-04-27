@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from datetime import datetime, timedelta
 import json
-from django.contrib.auth import authenticate, login, logout
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from rest_framework import permissions, status, views, viewsets
 from rest_framework.parsers import JSONParser, MultiPartParser, FormParser
 from rest_framework.response import Response
-from parking.models import SpotLocation
+from parking.models import ParkingLot, SpotLocation
 from reservations.models import SpotReservation
 from reservations.serializers import SpotReservationSerializer
 
 
 class SpotReservationViewSet(viewsets.ModelViewSet):
-
     lookup_field = 'id'
     queryset = SpotReservation.objects.all()
     serializer_class = SpotReservationSerializer
@@ -20,10 +20,14 @@ class SpotReservationViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         if serializer.is_valid():
             try:
-                spot_location_id = self.request.data.get('spot_location_id')
-                serializer.save(spot_location=SpotLocation.objects.get(id=spot_location_id), **self.request.data)
-            except:
-                print "NOT VALID SPOT LOCATION"
+                parking_lot_id = self.request.data.get('parking_lot_id')
+                res_end = self.request.data.get('spot_res_end')
+                res_delta = datetime.now() + timedelta(hours=int(res_end))
+                parking_lot = ParkingLot.objects.get(id=parking_lot_id)
+                spot_location = SpotLocation.objects.filter(parking_lot=parking_lot, reservation_spot__isnull=True)
+                serializer.save(spot_location=spot_location[0], spot_reservation_end=res_delta)
+            except ObjectDoesNotExist as e:
+                raise ObjectDoesNotExist(str(e))
         else:
             return Response({
                 'status': 'Bad request',

@@ -1,0 +1,49 @@
+<div class="modal-header">
+	<div class="row text-center">
+		<div class="col-md-12">
+			<h4 class="modal-title">Reserve your parking spot</h4>
+		</div>
+		<div class="col-md-6">
+			<h5 class="text-primary">{{vm.lot.parking_lot_name}}</h5>
+		</div>
+		<div class="col-md-6">
+			<h5>{{vm.lot.distance}} miles away</h5>
+		</div>
+	</div>
+</div>
+
+<div class="modal-body row text-center">
+	<div class="col-md-6">
+		<p>Parking spots available: 
+			<span class="text-success">{{vm.lot.parking_spot_availability.parking_spot_avail}}</span>
+		</p>
+	</div>
+	<div class="col-md-6">
+		<p>Parking spots: 
+			<span class="text-primary">{{vm.lot.parking_spot_availability.parking_spot_total}}</span>
+		</p>
+	</div>
+	<div class="col-md-12">
+		<h4 class="text-danger" ng-if="vm.lot.parking_spot_availability.parking_spot_avail<0">
+			Sorry this lot is currently full.
+		</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<label>Reserve spot for: </label></br>
+				<select ng-model="vm.reserveTime">
+					<option value="1">1 hour</option>
+					<option value="2">2 hours</option>
+					<option value="3">3 hours</option>
+					<option value="4">4 hours</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal-footer row">
+	<div class="col-md-12 text-center">
+		<button class="btn btn-danger margin-lr-10" type="button" ng-click="vm.closeModal()">Close</button>
+		<button class="btn btn-success margin-lr-10" type="button" ng-click="vm.submitReservation()" ng-disabled="vm.lot.parking_spot_availability.parking_spot_avail<0">Submit</button>
+	</div>
+</div>

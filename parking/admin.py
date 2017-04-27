@@ -17,8 +17,8 @@ class ParkingLotAdmin(admin.ModelAdmin):
     class Meta:
         model = ParkingLot
 
-    list_display = ('id', 'parking_lot_name', 'parking_lot_lat', 'parking_lot_lng',)
-    list_filter = ('id', 'parking_lot_name', 'parking_lot_lat', 'parking_lot_lng',)
+    list_display = ('id', 'parking_lot_name', 'parking_lot_location')
+    list_filter = ('id', 'parking_lot_name', 'parking_lot_location')
     ordering = ('id',)
 
 admin.site.register(ParkingLot, ParkingLotAdmin)
@@ -28,8 +28,8 @@ class SpotLocationAdmin(admin.ModelAdmin):
     class Meta:
         model = SpotLocation
 
-    list_display = ('id', 'parking_lot', 'spot_location_lat', 'spot_location_lng',)
-    list_filter = ('id', 'parking_lot', 'spot_location_lat', 'spot_location_lng',)
+    list_display = ('id', 'parking_lot', 'spot_location', 'spot_number')
+    list_filter = ('id', 'parking_lot', 'spot_location', 'spot_number')
     ordering = ('id',)
 
 admin.site.register(SpotLocation, SpotLocationAdmin)

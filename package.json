@@ -1,0 +1,32 @@
+{
+  "name": "ride_cell",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.0.4",
+    "gulp-concat": "^2.6.1",
+    "gulp-gzip": "^1.4.0",
+    "gulp-if": "^2.0.2",
+    "gulp-jshint": "^2.0.4",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.1.2",
+    "gulp-util": "^3.0.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielmicaletti/ride_cell.git"
+  },
+  "author": "daniel micaletti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielmicaletti/ride_cell/issues"
+  },
+  "homepage": "https://github.com/danielmicaletti/ride_cell#readme"
+}
