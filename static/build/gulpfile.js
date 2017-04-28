@@ -8,6 +8,9 @@ var ngAnnotate = require('gulp-ng-annotate');
 var gulpif = require('gulp-if');
 var gutil = require('gulp-util');
 var gzip = require('gulp-gzip');
+var plumber = require('gulp-plumber');
+var bytediff = require('gulp-bytediff');
+
 
 var jsSources,
 	bowerJs,
@@ -25,12 +28,12 @@ jsSources = [
 ];
 
 bowerJs = [
-	'development/bower_components/jquery/dist/jquery.min.js',
+	'development/bower_components/jquery/dist/jquery.js',
 	'development/bower_components/angular/angular.js',
-	'development/bower_components/angular-animate/angular-animate.min.js',
-	'development/bower_components/angular-ui-router/release/angular-ui-router.min.js',
-	'development/bower_components/angular-sanitize/angular-sanitize.min.js',
-	'development/bower_components/bootstrap/dist/js/bootstrap.min.js',
+	'development/bower_components/angular-animate/angular-animate.js',
+	'development/bower_components/angular-ui-router/release/angular-ui-router.js',
+	'development/bower_components/angular-sanitize/angular-sanitize.js',
+	'development/bower_components/bootstrap/dist/js/bootstrap.js',
 	'development/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
 ];
 
@@ -39,26 +42,67 @@ cssSources = [
 ];
 
 bowerCss = [
-	'development/bower_components/bootstrap/dist/css/bootstrap.min.css',
+	'development/bower_components/bootstrap/dist/css/bootstrap.css',
 ];
 
 outputDir = 'production/';
 
+// gulp.task('scripts', function() {
+// 	return gulp.src(jsSources)
+// 		.pipe(concat('main.min.js'))
+// 		.pipe(ngAnnotate())
+// 		.pipe(uglify()
+// 		.on('error', gutil.log))
+// 		.pipe(gulp.dest(outputDir + 'js'));
+// });
+
 gulp.task('scripts', function() {
-	return gulp.src(jsSources)
-		.pipe(concat('main.min.js'))
-		.pipe(ngAnnotate())
-		.pipe(uglify()
-		.on('error', gutil.log))
+    return gulp.src(jsSources)
+	    .pipe(plumber())
+			.pipe(concat('main.js', {newLine: ';'}))
+			.pipe(ngAnnotate({add: true}))
+	    .pipe(plumber.stop())
+        .pipe(gulp.dest(outputDir + 'js'));
+});
+
+gulp.task('scriptsMin', ['scripts'], function() {
+	return gulp.src(outputDir + 'js/main.js')
+		.pipe(plumber())
+			.pipe(bytediff.start())
+				.pipe(uglify({mangle: true}))
+			.pipe(bytediff.stop())
+			.pipe(rename('main.min.js'))
+		.pipe(plumber.stop())
 		.pipe(gulp.dest(outputDir + 'js'));
 });
 
+// gulp.task('bowerScripts', function() {
+// 	return gulp.src(bowerJs)
+// 		.pipe(concat('bower.min.js'))
+// 		.pipe(ngAnnotate())
+// 		.pipe(uglify()
+// 		.on('error', gutil.log))
+// 		.pipe(gulp.dest(outputDir + 'js'));
+// });
+
 gulp.task('bowerScripts', function() {
-	return gulp.src(bowerJs)
-		.pipe(concat('bower.min.js'))
-		.pipe(ngAnnotate())
-		.pipe(uglify()
-		.on('error', gutil.log))
+    return gulp.src(bowerJs)
+	    .pipe(plumber())
+			.pipe(concat('bower.js', {newLine: ';'}))
+			.pipe(ngAnnotate({add: true}))
+	    .pipe(plumber.stop())
+        .pipe(gulp.dest(outputDir + 'js'));
+});
+
+
+gulp.task('bowerMin', ['bowerScripts'], function() {
+	return gulp.src(outputDir + 'js/bower.js')
+		.pipe(plumber())
+			.pipe(bytediff.start())
+				.pipe(uglify({mangle: true}))
+			.pipe(bytediff.stop())
+			.pipe(rename('bower.min.js'))
+		.pipe(plumber.stop())
 		.pipe(gulp.dest(outputDir + 'js'));
 });
 
@@ -105,5 +149,5 @@ gulp.task('images', function() {
 		.pipe(gulp.dest(outputDir + 'images'));
 });
 // Build runs
-gulp.task('default', ['scripts', 'bowerScripts', 'styles', 'bowerStyles', 'gzipJs', 'gzipCss', 'views', 'fonts', 'images']);
+gulp.task('default', ['scripts', 'scriptsMin','bowerScripts', 'bowerMin', 'styles', 'bowerStyles', 'views', 'fonts', 'images']);
 

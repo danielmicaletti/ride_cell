@@ -15,7 +15,11 @@
     "gulp-uglify": "^2.1.2",
     "gulp-util": "^3.0.8"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-bytediff": "^1.0.0",
+    "gulp-jshint": "^2.0.4",
+    "gulp-plumber": "^1.1.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

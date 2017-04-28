@@ -97,7 +97,7 @@ USE_TZ = True
 
 SITE_ID = 1
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 STATIC_URL = '/static/build/production/'
 
