@@ -160,7 +160,7 @@
 
             });
 
-            vm.map.addListener('bounds_changed', function(){
+            vm.map.addListener('zoom_changed', function(){
                 mapRadius = getMapRadius();
                 vm.getParkingLots(mapRadius.position, mapRadius.radius);
             });
