@@ -5,6 +5,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = False
 
+ADMINS = (('daniel micaletti', 'danielmicaletti@gmail.com'),)
+
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
