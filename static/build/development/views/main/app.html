@@ -1,8 +1,8 @@
-<!-- <div class="alert-fixed" ng-style="{'position': fixed, top: 0; left: 0; 'z-index': 999}"> -->
-	<alert class="alert-fixed text-center" ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)">
-		{{alert.msg}}
-	</alert>
-<!-- </div> -->
+
+<alert class="alert-fixed text-center" ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)">
+	{{alert.msg}}
+</alert>
+
 <div id="map" ng-show="!vm.loading && !vm.mapError"></div>
 <h2 class="text-danger text-center" ng-show="vm.mapError">{{vm.mapError}}</h2>
 <div class="row" ng-show="vm.loading && !vm.mapError">
@@ -10,5 +10,3 @@
 		<h2 class="center-block text-center spin-center-helper"><span class="text-lg"><i class="fa fa-refresh fa-spin text-primary"/> Loading Spots...</span></h2>
 	</div>
 </div>
-
-<!-- <div style="position: fixed; top: 0; left: 0; z-index: 999" -->

@@ -22,6 +22,10 @@ html, body, .container-fluid, #map {
 	width: 100%;
 }
 
+.modal-footer {
+    border-top: none;
+}
+
 .alert-fixed {
     position: fixed;
     top: 0px;

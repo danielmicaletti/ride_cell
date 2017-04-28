@@ -16,24 +16,11 @@
 
         $stateProvider
             .state('app', {
-                // abstract: true,
                 url: '/app',
                 controller: 'AppController',
                 controllerAs: 'vm',     
                 templateUrl: static_path('views/main/app.html'),
-                // data: {
-                //     requireLogin: true
-                // },
             });
-            // .state('app.dashboard', {
-            //     url: '/dashboard/:userId',
-            //     controller: 'DashBoardController',
-            //     controllerAs: 'vm',     
-            //     templateUrl: static_path('views/main/dashboard.html'),
-            //     data: {
-            //         requireLogin: true
-            //     },
-            // })
     };
 })();
 

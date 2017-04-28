@@ -11,7 +11,6 @@
         var vm = this;
 
         var Main = {
-            initMap: initMap,
             getParkingLots: getParkingLots,
             reserveSpot: reserveSpot,
             cancelSpot: cancelSpot
@@ -25,12 +24,6 @@
 
         function generalCallbackError(response){
             return $q.reject(response);
-        };
-
-        function initMap(){
-            return $http.jsonp($sce.trustAsResourceUrl('https://maps.googleapis.com/maps/api/js?key=AIzaSyD3-XVEUcYi35Zcxgsg78E0gHqzqLTQn-Q&libraries=geometry'))
-                .then(generalCallbackSuccess)
-                .catch(generalCallbackError);
         };
 
         function getParkingLots(position){
