@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from datetime import datetime, timedelta
 import json
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 from django.http import HttpResponse
 from rest_framework import permissions, status, views, viewsets
 from rest_framework.parsers import JSONParser, MultiPartParser, FormParser
@@ -24,7 +25,7 @@ class SpotReservationViewSet(viewsets.ModelViewSet):
                 res_end = self.request.data.get('spot_res_end')
                 res_delta = datetime.now() + timedelta(hours=int(res_end))
                 parking_lot = ParkingLot.objects.get(id=parking_lot_id)
-                spot_location = SpotLocation.objects.filter(parking_lot=parking_lot, reservation_spot__isnull=True)
+                spot_location = SpotLocation.objects.filter(parking_lot=parking_lot).filter(Q(reservation_spot__isnull=True) | Q(reservation_spot__spot_reservation_end__lt=datetime.now()))
                 serializer.save(spot_location=spot_location[0], spot_reservation_end=res_delta)
             except ObjectDoesNotExist as e:
                 raise ObjectDoesNotExist(str(e))

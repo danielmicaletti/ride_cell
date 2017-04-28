@@ -3,7 +3,7 @@ import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-DEBUG = True
+DEBUG = False
 
 ADMINS = (('daniel micaletti', 'danielmicaletti@gmail.com'),)
 

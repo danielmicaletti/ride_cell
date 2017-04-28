@@ -64,7 +64,9 @@
             marker.addListener('dragend', function(){
                 var newPosition = {lat:marker.getPosition().lat(), lng:marker.getPosition().lng()};
                 vm.map.setCenter(newPosition);
-                setMap(newPosition);
+                mapRadius = getMapRadius();
+                vm.getParkingLots(newPosition, mapRadius.radius);
+
             });
 
             vm.map.addListener('zoom_changed', function(){
